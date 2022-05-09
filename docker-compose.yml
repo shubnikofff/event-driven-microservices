@@ -1,0 +1,29 @@
+version: "3"
+services:
+  axon-server:
+    image: axoniq/axonserver
+    ports:
+      - "8024:8024"
+      - "8124:8124"
+    volumes:
+      - axon-server-data:/data
+      - axon-server-events:/eventdata
+    environment:
+      - AXONIQ_AXONSERVER_NAME=My Axon Server
+      - AXONIQ_AXONSERVER_HOSTNAME=localhost
+      - AXONIQ_AXONSERVER_DEVMODE_ENABLED=true
+
+  postgres:
+    image: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=secret
+      - POSTGRES_USER=products
+
+volumes:
+  axon-server-data:
+  axon-server-events:
+  postgres:

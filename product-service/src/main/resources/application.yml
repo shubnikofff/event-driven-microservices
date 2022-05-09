@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: product-service
+  datasource:
+    url: jdbc:postgresql://localhost:5432/products
+    username: products
+    password: secret
+  jpa:
+    hibernate:
+      ddl-auto: update
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
+  instance:
+    instance-id: ${spring.application.name}:${instanceId:${random.value}}
+server:
+  port: 0
+  error:
+    include-message: always
+    include-binding-errors: always
