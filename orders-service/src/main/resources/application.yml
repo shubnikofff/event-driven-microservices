@@ -1,8 +1,8 @@
 spring:
   application:
-    name: product-service
+    name: orders-service
   datasource:
-    url: jdbc:postgresql://localhost:5432/products
+    url: jdbc:postgresql://localhost:5432/orders
     username: edd
     password: secret
   jpa:

@@ -8,6 +8,7 @@
         <option value="$PROJECT_DIR$/discovery-server/pom.xml" />
         <option value="$PROJECT_DIR$/product-service/pom.xml" />
         <option value="$PROJECT_DIR$/api-gateway/pom.xml" />
+        <option value="$PROJECT_DIR$/orders-service/pom.xml" />
       </list>
     </option>
   </component>
@@ -16,10 +17,5 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="jpab" />
-  </component>
-  <component name="SwUserDefinedSpecifications">
-    <option name="specTypeByUrl">
-      <map />
-    </option>
   </component>
 </project>
