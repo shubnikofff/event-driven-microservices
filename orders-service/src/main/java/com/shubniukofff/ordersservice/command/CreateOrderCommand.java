@@ -3,12 +3,13 @@ package com.shubniukofff.ordersservice.command;
 import com.shubniukofff.ordersservice.core.enums.OrderStatus;
 import lombok.Builder;
 import lombok.Getter;
-
-import java.util.UUID;
+import org.axonframework.modelling.command.TargetAggregateIdentifier;
 
 @Getter
 @Builder
 public class CreateOrderCommand {
+
+	@TargetAggregateIdentifier
 	public final String orderId;
 	private final String userId;
 	private final String productId;
