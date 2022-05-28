@@ -33,12 +33,12 @@ public class OrderAggregate {
 	}
 
 	@EventSourcingHandler
-	public void on(CreateOrderCommand createOrderCommand) {
-		orderId = createOrderCommand.getOrderId();
-		productId = createOrderCommand.getProductId();
-		userId = createOrderCommand.getUserId();
-		quantity = createOrderCommand.getQuantity();
-		addressId = createOrderCommand.getAddressId();
-		orderStatus = createOrderCommand.getOrderStatus();
+	public void on(OrderCreatedEvent orderCreatedEvent) {
+		orderId = orderCreatedEvent.getOrderId();
+		productId = orderCreatedEvent.getProductId();
+		userId = orderCreatedEvent.getUserId();
+		quantity = orderCreatedEvent.getQuantity();
+		addressId = orderCreatedEvent.getAddressId();
+		orderStatus = orderCreatedEvent.getOrderStatus();
 	}
 }

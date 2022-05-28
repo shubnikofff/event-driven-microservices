@@ -3,17 +3,20 @@ package com.shubniukofff.ordersservice.command.rest;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
-import java.util.UUID;
 
 @RequiredArgsConstructor
 @Getter
 public class CreateOrderRestModel {
-//	@NotBlank
-	private final UUID productId;
-	@Min(1)
+	@NotBlank(message = "Order productId is a required field")
+	private final String productId;
+
+	@Min(value = 1, message = "Quantity cannot be lower than 1")
+	@Max(value = 5, message = "Quantity cannot be larger than 5")
 	private final int quantity;
-//	@NotBlank
-	private final UUID addressId;
+
+	@NotBlank(message = "Order addressId is a required field")
+	private final String addressId;
 }

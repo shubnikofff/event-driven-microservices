@@ -4,7 +4,6 @@ import com.shubniukofff.ordersservice.command.CreateOrderCommand;
 import com.shubniukofff.ordersservice.core.enums.OrderStatus;
 import lombok.RequiredArgsConstructor;
 import org.axonframework.commandhandling.gateway.CommandGateway;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,9 +24,9 @@ public class OrdersController {
 		final var createOrderCommand = CreateOrderCommand.builder()
 				.orderId(UUID.randomUUID().toString())
 				.userId("27b95829-4f3f-4ddf-8983-151ba010e35b")
-				.productId(requestBody.getProductId().toString())
+				.productId(requestBody.getProductId())
 				.quantity(requestBody.getQuantity())
-				.addressId(requestBody.getAddressId().toString())
+				.addressId(requestBody.getAddressId())
 				.orderStatus(OrderStatus.CREATED)
 				.build();
 

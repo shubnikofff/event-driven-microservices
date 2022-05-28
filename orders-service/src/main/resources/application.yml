@@ -20,6 +20,8 @@ server:
     include-message: always
     include-binding-errors: always
 axon:
+  axonserver:
+    token: 123abc
   eventhandling:
     processors:
       order-group:
