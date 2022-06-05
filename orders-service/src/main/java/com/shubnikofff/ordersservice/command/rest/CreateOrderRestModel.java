@@ -1,4 +1,4 @@
-package com.shubniukofff.ordersservice.command.rest;
+package com.shubnikofff.ordersservice.command.rest;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

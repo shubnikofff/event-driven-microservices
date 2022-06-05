@@ -1,6 +1,6 @@
-package com.shubniukofff.ordersservice.core.events;
+package com.shubnikofff.ordersservice.core.events;
 
-import com.shubniukofff.ordersservice.core.enums.OrderStatus;
+import com.shubnikofff.ordersservice.core.enums.OrderStatus;
 import lombok.Data;
 
 @Data

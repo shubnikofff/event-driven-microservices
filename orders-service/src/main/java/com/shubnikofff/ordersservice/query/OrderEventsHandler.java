@@ -1,8 +1,8 @@
-package com.shubniukofff.ordersservice.query;
+package com.shubnikofff.ordersservice.query;
 
-import com.shubniukofff.ordersservice.core.data.OrderEntity;
-import com.shubniukofff.ordersservice.core.data.OrdersRepository;
-import com.shubniukofff.ordersservice.core.events.OrderCreatedEvent;
+import com.shubnikofff.ordersservice.core.data.OrderEntity;
+import com.shubnikofff.ordersservice.core.data.OrdersRepository;
+import com.shubnikofff.ordersservice.core.events.OrderCreatedEvent;
 import lombok.RequiredArgsConstructor;
 import org.axonframework.config.ProcessingGroup;
 import org.axonframework.eventhandling.EventHandler;

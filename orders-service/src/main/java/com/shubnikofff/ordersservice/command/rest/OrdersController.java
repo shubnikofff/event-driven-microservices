@@ -1,7 +1,7 @@
-package com.shubniukofff.ordersservice.command.rest;
+package com.shubnikofff.ordersservice.command.rest;
 
-import com.shubniukofff.ordersservice.command.CreateOrderCommand;
-import com.shubniukofff.ordersservice.core.enums.OrderStatus;
+import com.shubnikofff.ordersservice.command.CreateOrderCommand;
+import com.shubnikofff.ordersservice.core.enums.OrderStatus;
 import lombok.RequiredArgsConstructor;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.springframework.web.bind.annotation.PostMapping;

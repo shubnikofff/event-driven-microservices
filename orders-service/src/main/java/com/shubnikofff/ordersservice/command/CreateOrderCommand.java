@@ -1,6 +1,6 @@
-package com.shubniukofff.ordersservice.command;
+package com.shubnikofff.ordersservice.command;
 
-import com.shubniukofff.ordersservice.core.enums.OrderStatus;
+import com.shubnikofff.ordersservice.core.enums.OrderStatus;
 import lombok.Builder;
 import lombok.Getter;
 import org.axonframework.modelling.command.TargetAggregateIdentifier;

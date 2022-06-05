@@ -1,4 +1,4 @@
-package com.shubniukofff.ordersservice.core.data;
+package com.shubnikofff.ordersservice.core.data;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

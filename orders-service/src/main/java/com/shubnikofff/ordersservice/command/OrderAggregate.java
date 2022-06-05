@@ -1,7 +1,7 @@
-package com.shubniukofff.ordersservice.command;
+package com.shubnikofff.ordersservice.command;
 
-import com.shubniukofff.ordersservice.core.enums.OrderStatus;
-import com.shubniukofff.ordersservice.core.events.OrderCreatedEvent;
+import com.shubnikofff.ordersservice.core.enums.OrderStatus;
+import com.shubnikofff.ordersservice.core.events.OrderCreatedEvent;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;
