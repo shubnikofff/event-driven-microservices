@@ -19,6 +19,7 @@
         <module>discovery-server</module>
         <module>product-service</module>
         <module>orders-service</module>
+        <module>core</module>
     </modules>
 
 </project>
