@@ -20,6 +20,7 @@
         <module>product-service</module>
         <module>orders-service</module>
         <module>core</module>
+        <module>users-service</module>
     </modules>
 
 </project>
