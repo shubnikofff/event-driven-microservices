@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: payments-service
+  datasource:
+    url: jdbc:postgresql://localhost:5432/payments
+    username: edd
+    password: secret
+  jpa:
+    hibernate:
+      ddl-auto: update
+server:
+  port: 0

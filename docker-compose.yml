@@ -23,7 +23,7 @@ services:
     environment:
       - POSTGRES_USER=edd
       - POSTGRES_PASSWORD=secret
-      - POSTGRES_MULTIPLE_DATABASES=products,orders
+      - POSTGRES_MULTIPLE_DATABASES=products,orders,payments
 
 volumes:
   axon-server-data:

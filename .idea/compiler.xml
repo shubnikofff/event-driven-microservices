@@ -7,12 +7,13 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="api-gateway" />
         <module name="orders-service" />
-        <module name="product-service" />
         <module name="core" />
         <module name="discovery-server" />
         <module name="users-service" />
+        <module name="api-gateway" />
+        <module name="product-service" />
+        <module name="payments-service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -26,6 +27,7 @@
       <module name="discovery-server" options="-parameters" />
       <module name="jpa-test" options="-parameters" />
       <module name="orders-service" options="-parameters" />
+      <module name="payments-service" options="-parameters" />
       <module name="product-service" options="-parameters" />
       <module name="users-service" options="-parameters" />
     </option>
