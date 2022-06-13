@@ -1,6 +1,8 @@
 package com.shubnikofff.ordersservice.saga;
 
+import com.shubnikofff.core.commands.ProcessPaymentCommand;
 import com.shubnikofff.core.commands.ReserveProductCommand;
+import com.shubnikofff.core.events.PaymentProcessedEvent;
 import com.shubnikofff.core.events.ProductReservedEvent;
 import com.shubnikofff.core.model.User;
 import com.shubnikofff.core.query.FetchUserPaymentDetailsQuery;
@@ -17,7 +19,8 @@ import org.axonframework.queryhandling.QueryGateway;
 import org.axonframework.spring.stereotype.Saga;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.concurrent.CompletableFuture;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 @Saga
 //@RequiredArgsConstructor
@@ -74,5 +77,28 @@ public class OrderSaga {
 		}
 
 		log.info("Successfully fetched user payment details for user {}", userPaymentDetails.getFirstName());
+
+		final var processPaymentCommand = ProcessPaymentCommand.builder()
+				.orderId(productReservedEvent.getOrderId())
+				.paymentId(UUID.randomUUID().toString())
+				.build();
+
+		String result = null;
+		try {
+			result = commandGateway.sendAndWait(processPaymentCommand, 10, TimeUnit.SECONDS);
+		} catch (Exception e) {
+			log.error(e.getMessage());
+			// todo: start compensating transaction
+		}
+
+		if(result == null) {
+			log.info("The ProcessPaymentCommand resulted in NULL. Initiating compensating transaction...");
+			// todo: start compensating transaction
+		}
+	}
+
+    @SagaEventHandler(associationProperty = "orderId")
+	public void handle(PaymentProcessedEvent event) {
+		// todo: Send an ApproveOrderCommand
 	}
 }
