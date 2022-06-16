@@ -1,6 +1,9 @@
 package com.shubnikofff.ordersservice.command;
 
-import com.shubnikofff.ordersservice.core.enums.OrderStatus;
+import com.shubnikofff.core.events.OrderApprovedEvent;
+import com.shubnikofff.ordersservice.command.commands.ApproveOrderCommand;
+import com.shubnikofff.ordersservice.command.commands.CreateOrderCommand;
+import com.shubnikofff.core.model.OrderStatus;
 import com.shubnikofff.ordersservice.core.events.OrderCreatedEvent;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
@@ -40,5 +43,16 @@ public class OrderAggregate {
 		quantity = orderCreatedEvent.getQuantity();
 		addressId = orderCreatedEvent.getAddressId();
 		orderStatus = orderCreatedEvent.getOrderStatus();
+	}
+
+	@CommandHandler
+	public void handle(ApproveOrderCommand approveOrderCommand) {
+		final var orderApprovedEvent = new OrderApprovedEvent(approveOrderCommand.getOrderId());
+		AggregateLifecycle.apply(orderApprovedEvent);
+	}
+
+	@EventSourcingHandler
+	protected void on(OrderApprovedEvent orderApprovedEvent) {
+		orderStatus = orderApprovedEvent.getOrderStatus();
 	}
 }

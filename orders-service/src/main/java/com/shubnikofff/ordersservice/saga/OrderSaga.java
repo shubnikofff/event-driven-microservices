@@ -2,10 +2,12 @@ package com.shubnikofff.ordersservice.saga;
 
 import com.shubnikofff.core.commands.ProcessPaymentCommand;
 import com.shubnikofff.core.commands.ReserveProductCommand;
+import com.shubnikofff.core.events.OrderApprovedEvent;
 import com.shubnikofff.core.events.PaymentProcessedEvent;
 import com.shubnikofff.core.events.ProductReservedEvent;
 import com.shubnikofff.core.model.User;
 import com.shubnikofff.core.query.FetchUserPaymentDetailsQuery;
+import com.shubnikofff.ordersservice.command.commands.ApproveOrderCommand;
 import com.shubnikofff.ordersservice.core.events.OrderCreatedEvent;
 import lombok.extern.log4j.Log4j2;
 import org.axonframework.commandhandling.CommandCallback;
@@ -13,7 +15,9 @@ import org.axonframework.commandhandling.CommandMessage;
 import org.axonframework.commandhandling.CommandResultMessage;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.axonframework.messaging.responsetypes.ResponseTypes;
+import org.axonframework.modelling.saga.EndSaga;
 import org.axonframework.modelling.saga.SagaEventHandler;
+import org.axonframework.modelling.saga.SagaLifecycle;
 import org.axonframework.modelling.saga.StartSaga;
 import org.axonframework.queryhandling.QueryGateway;
 import org.axonframework.spring.stereotype.Saga;
@@ -81,6 +85,7 @@ public class OrderSaga {
 		final var processPaymentCommand = ProcessPaymentCommand.builder()
 				.orderId(productReservedEvent.getOrderId())
 				.paymentId(UUID.randomUUID().toString())
+				.paymentDetails(userPaymentDetails.getPaymentDetails())
 				.build();
 
 		String result = null;
@@ -99,6 +104,14 @@ public class OrderSaga {
 
     @SagaEventHandler(associationProperty = "orderId")
 	public void handle(PaymentProcessedEvent event) {
-		// todo: Send an ApproveOrderCommand
+		final var approveOrderCommand = new ApproveOrderCommand(event.getOrderId());
+		commandGateway.send(approveOrderCommand);
+	}
+
+	@EndSaga
+	@SagaEventHandler(associationProperty = "orderId")
+	public void handle(OrderApprovedEvent orderApprovedEvent) {
+		log.info("Order is approved. Order Saga complete for orderId: {}", orderApprovedEvent.getOrderId());
+//		SagaLifecycle.end();
 	}
 }

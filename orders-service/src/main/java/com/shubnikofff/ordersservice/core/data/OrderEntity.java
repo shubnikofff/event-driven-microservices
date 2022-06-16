@@ -1,6 +1,6 @@
 package com.shubnikofff.ordersservice.core.data;
 
-import com.shubnikofff.ordersservice.core.enums.OrderStatus;
+import com.shubnikofff.core.model.OrderStatus;
 import lombok.Data;
 
 import javax.persistence.*;

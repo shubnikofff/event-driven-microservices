@@ -1,5 +1,6 @@
 package com.shubnikofff.ordersservice.query;
 
+import com.shubnikofff.core.events.OrderApprovedEvent;
 import com.shubnikofff.ordersservice.core.data.OrderEntity;
 import com.shubnikofff.ordersservice.core.data.OrdersRepository;
 import com.shubnikofff.ordersservice.core.events.OrderCreatedEvent;
@@ -23,4 +24,16 @@ public class OrderEventsHandler {
 		ordersRepository.save(orderEntity);
 	}
 
+	@EventHandler
+	public void on(OrderApprovedEvent orderApprovedEvent) {
+		final var orderEntity = ordersRepository.findByOrderId(orderApprovedEvent.getOrderId());
+
+		if(orderEntity == null) {
+			// todo: Do something about it
+			return;
+		}
+
+		orderEntity.setOrderStatus(orderApprovedEvent.getOrderStatus());
+		ordersRepository.save(orderEntity);
+	}
 }

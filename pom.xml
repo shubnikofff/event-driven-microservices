@@ -21,6 +21,7 @@
         <module>orders-service</module>
         <module>core</module>
         <module>users-service</module>
+        <module>payments-service</module>
     </modules>
 
 </project>

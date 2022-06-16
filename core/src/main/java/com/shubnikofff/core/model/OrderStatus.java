@@ -1,4 +1,4 @@
-package com.shubnikofff.ordersservice.core.enums;
+package com.shubnikofff.core.model;
 
 public enum OrderStatus {
 	CREATED, APPROVED, REJECTED
