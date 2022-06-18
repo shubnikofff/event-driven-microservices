@@ -1,10 +1,12 @@
 package com.shubnikofff.ordersservice.command;
 
-import com.shubnikofff.core.events.OrderApprovedEvent;
+import com.shubnikofff.ordersservice.core.events.OrderApprovedEvent;
 import com.shubnikofff.ordersservice.command.commands.ApproveOrderCommand;
 import com.shubnikofff.ordersservice.command.commands.CreateOrderCommand;
 import com.shubnikofff.core.model.OrderStatus;
+import com.shubnikofff.ordersservice.command.commands.RejectOrderCommand;
 import com.shubnikofff.ordersservice.core.events.OrderCreatedEvent;
+import com.shubnikofff.ordersservice.core.events.OrderRejectedEvent;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;
@@ -54,5 +56,16 @@ public class OrderAggregate {
 	@EventSourcingHandler
 	protected void on(OrderApprovedEvent orderApprovedEvent) {
 		orderStatus = orderApprovedEvent.getOrderStatus();
+	}
+
+	@CommandHandler
+	public void handle(RejectOrderCommand rejectOrderCommand) {
+		final var orderRejectedEvent = new OrderRejectedEvent(rejectOrderCommand.getOrderId(), rejectOrderCommand.getReason());
+		AggregateLifecycle.apply(orderRejectedEvent);
+	}
+
+	@EventSourcingHandler
+	public void on(OrderRejectedEvent orderRejectedEvent) {
+		orderStatus = orderRejectedEvent.getOrderStatus();
 	}
 }

@@ -1,5 +1,6 @@
 package com.shubnikofff.productservice.query;
 
+import com.shubnikofff.core.events.ProductReservationCancelledEvent;
 import com.shubnikofff.core.events.ProductReservedEvent;
 import com.shubnikofff.productservice.core.data.ProductEntity;
 import com.shubnikofff.productservice.core.data.ProductsRepository;
@@ -45,9 +46,27 @@ public class ProductEventsHandler {
 	@EventHandler
 	public void on(ProductReservedEvent productReservedEvent) {
 		final var productEntity = productsRepository.findByProductId(productReservedEvent.getProductId());
+
+		log.debug("ProductReservedEvent: Current product quantity: {}", productEntity.getQuantity());
+
 		productEntity.setQuantity(productEntity.getQuantity() - productReservedEvent.getQuantity());
 		productsRepository.save(productEntity);
 
+		log.debug("ProductReservedEvent: New product quantity: {}", productEntity.getQuantity());
+
 		log.info("ProductReservedEvent is called for productId {} and orderId {}", productReservedEvent.getProductId(), productReservedEvent.getOrderId());
+	}
+
+	@EventHandler
+	public void  on(ProductReservationCancelledEvent productReservationCancelledEvent) {
+		final var productEntity = productsRepository.findByProductId(productReservationCancelledEvent.getProductId());
+
+		log.debug("ProductReservationCancelledEvent: Current product quantity: {}", productEntity.getQuantity());
+
+		final var newQuantity = productEntity.getQuantity() + productReservationCancelledEvent.getQuantity();
+		productEntity.setQuantity(newQuantity);
+		productsRepository.save(productEntity);
+
+		log.debug("ProductReservationCancelledEvent: New product quantity: {}", productEntity.getQuantity());
 	}
 }

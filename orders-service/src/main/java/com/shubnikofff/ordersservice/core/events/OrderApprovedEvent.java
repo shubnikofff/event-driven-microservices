@@ -1,4 +1,4 @@
-package com.shubnikofff.core.events;
+package com.shubnikofff.ordersservice.core.events;
 
 
 import com.shubnikofff.core.model.OrderStatus;

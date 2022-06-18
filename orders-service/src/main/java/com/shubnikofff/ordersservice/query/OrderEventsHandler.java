@@ -1,9 +1,10 @@
 package com.shubnikofff.ordersservice.query;
 
-import com.shubnikofff.core.events.OrderApprovedEvent;
+import com.shubnikofff.ordersservice.core.events.OrderApprovedEvent;
 import com.shubnikofff.ordersservice.core.data.OrderEntity;
 import com.shubnikofff.ordersservice.core.data.OrdersRepository;
 import com.shubnikofff.ordersservice.core.events.OrderCreatedEvent;
+import com.shubnikofff.ordersservice.core.events.OrderRejectedEvent;
 import lombok.RequiredArgsConstructor;
 import org.axonframework.config.ProcessingGroup;
 import org.axonframework.eventhandling.EventHandler;
@@ -34,6 +35,13 @@ public class OrderEventsHandler {
 		}
 
 		orderEntity.setOrderStatus(orderApprovedEvent.getOrderStatus());
+		ordersRepository.save(orderEntity);
+	}
+
+	@EventHandler
+	public void on(OrderRejectedEvent orderRejectedEvent) {
+		final var orderEntity = ordersRepository.findByOrderId(orderRejectedEvent.getOrderId());
+		orderEntity.setOrderStatus(orderRejectedEvent.getOrderStatus());
 		ordersRepository.save(orderEntity);
 	}
 }

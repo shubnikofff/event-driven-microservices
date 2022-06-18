@@ -1,6 +1,8 @@
 package com.shubnikofff.productservice.command;
 
+import com.shubnikofff.core.commands.CancelProductReservationCommand;
 import com.shubnikofff.core.commands.ReserveProductCommand;
+import com.shubnikofff.core.events.ProductReservationCancelledEvent;
 import com.shubnikofff.core.events.ProductReservedEvent;
 import com.shubnikofff.productservice.core.events.ProductCreatedEvent;
 import org.axonframework.commandhandling.CommandHandler;
@@ -55,6 +57,24 @@ public class ProductAggregate {
 				.build();
 
 		AggregateLifecycle.apply(productReservedEvent);
+	}
+
+	@CommandHandler
+	public void handle(CancelProductReservationCommand cancelProductReservationCommand) {
+		final var productReservationCancelledEvent = ProductReservationCancelledEvent.builder()
+				.orderId(cancelProductReservationCommand.getOrderId())
+				.productId(cancelProductReservationCommand.getProductId())
+				.userId(cancelProductReservationCommand.getUserId())
+				.quantity(cancelProductReservationCommand.getQuantity())
+				.reason(cancelProductReservationCommand.getReason())
+				.build();
+
+		AggregateLifecycle.apply(productReservationCancelledEvent);
+	}
+
+	@EventSourcingHandler
+	public void on(ProductReservationCancelledEvent productReservationCancelledEvent) {
+		quantity += productReservationCancelledEvent.getQuantity();
 	}
 
 	@EventSourcingHandler
