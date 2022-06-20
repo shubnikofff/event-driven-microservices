@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.axonframework.config.ProcessingGroup;
 import org.axonframework.eventhandling.EventHandler;
+import org.axonframework.eventhandling.ResetHandler;
 import org.axonframework.messaging.interceptors.ExceptionHandler;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
@@ -68,5 +69,10 @@ public class ProductEventsHandler {
 		productsRepository.save(productEntity);
 
 		log.debug("ProductReservationCancelledEvent: New product quantity: {}", productEntity.getQuantity());
+	}
+
+	@ResetHandler
+	public void reset() {
+		productsRepository.deleteAll();
 	}
 }

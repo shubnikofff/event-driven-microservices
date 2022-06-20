@@ -9,10 +9,13 @@ POST http://localhost:8082/product-service/products
 Content-Type: application/json
 
 {
-  "title":  "iPhone 12",
-  "price":450,
-  "quantity":3
+  "title":  "iPod",
+  "price":300,
+  "quantity":1
 }
+
+### Reset Event Processor
+POST http://localhost:8082/product-service/management/eventProcessor/product-group/reset
 
 <> 2022-05-22T232514.500.json
 <> 2022-05-22T232321.500.json

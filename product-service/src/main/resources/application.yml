@@ -23,4 +23,4 @@ axon:
   eventhandling:
     processors:
       product-group:
-        mode: SUBSCRIBING
+        mode: TRACKING
