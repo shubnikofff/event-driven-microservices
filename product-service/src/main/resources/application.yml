@@ -24,3 +24,13 @@ axon:
     processors:
       product-group:
         mode: TRACKING
+
+logging:
+  level:
+    org:
+      axonframework:
+        axonserver:
+          connector:
+            event:
+              axon:
+                AxonServerEventStore: DEBUG
